@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กฎอนุรักษ์พลังงานกล - Physics Quiz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt for Thai text -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for LaTeX Rendering -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #93c5fd; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6; 
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-hitech {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2), 0 2px 4px -1px rgba(59, 130, 246, 0.1);
+        }
+        .btn-hitech:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3), 0 4px 6px -2px rgba(59, 130, 246, 0.1);
+        }
+        .btn-hitech:active {
+            transform: translateY(0);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        /* MathJax Adjustments - Responsive */
+        mjx-container {
+            font-size: 100% !important;
+        }
+        
+        @media (min-width: 640px) {
+            mjx-container {
+                font-size: 110% !important;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            mjx-container {
+                font-size: 120% !important;
+            }
+        }
+        
+        /* Touch-friendly buttons on mobile */
+        @media (max-width: 640px) {
+            button, .btn-hitech {
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+            <div class="flex justify-between h-14 sm:h-16 items-center">
+                <div class="flex items-center cursor-pointer" onclick="showSection('home')">
+                    <i class="fa-solid fa-atom text-blue-600 text-xl sm:text-2xl mr-1 sm:mr-2"></i>
+                    <span class="font-bold text-base sm:text-lg md:text-xl text-blue-900 tracking-wide">นวัตกรรมการเรียนรู้ฟิสิกส์: <span class="text-blue-500">กฎอนุรักษ์พลังงานกล</span></span>
+                </div>
+                <div>
+                    <button onclick="showSection('home')" class="text-slate-500 hover:text-blue-600 transition p-2 text-sm sm:text-base">
+                        <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">หน้าแรก</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Info -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-2 text-center sm:text-left">
+                <div class="text-xs sm:text-sm text-slate-600">
+                    <i class="fa-solid fa-book text-blue-600 mr-1"></i>
+                    <span class="font-medium">รายวิชา ฟิสิกส์ 2</span>
+                    <span class="mx-1 sm:mx-2 text-slate-400">|</span>
+                    <span class="font-mono">รหัสวิชา ว31202</span>
+                </div>
+                <div class="text-xs sm:text-sm text-slate-600">
+                    <i class="fa-solid fa-school text-indigo-600 mr-1"></i>
+                    <span>โรงเรียนห้องสอนศึกษา ในพระอุปถัมภ์ฯ</span>
+                </div>
+                <div class="text-xs sm:text-sm text-slate-600">
+                    <i class="fa-solid fa-chalkboard-user text-purple-600 mr-1"></i>
+                    <span class="font-medium">ครูผู้สอน:</span> <span>นายสาธิต ศิริวัชน์</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto p-3 sm:p-4 md:p-6 mb-6 sm:mb-10">
+
+        <!-- SECTION: HOME -->
+        <section id="home" class="fade-in min-h-[70vh] sm:min-h-[80vh] flex flex-col items-center justify-center text-center py-4 sm:py-6">
+            <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 md:p-10 lg:p-16 relative overflow-hidden max-w-4xl w-full border border-blue-100">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-400 to-indigo-600"></div>
+                
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-3 sm:mb-4 px-2">กฎอนุรักษ์พลังงานกล</h1>
+                <p class="text-base sm:text-lg text-slate-500 mb-6 sm:mb-8 md:mb-10 px-2">Law of Conservation of Mechanical Energy</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12">
+                    <button onclick="showSection('learn')" class="btn-hitech bg-white border-2 border-blue-100 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl flex flex-col items-center hover:border-blue-500 hover:bg-blue-50 group">
+                        <div class="bg-blue-100 text-blue-600 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="font-semibold text-base sm:text-lg text-slate-700">เรียนรู้เนื้อหา</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1 sm:mt-2">ศึกษาทฤษฎีและตัวอย่าง</p>
+                    </button>
+
+                    <button onclick="setupGroupQuiz()" class="btn-hitech bg-white border-2 border-blue-100 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl flex flex-col items-center hover:border-indigo-500 hover:bg-indigo-50 group">
+                        <div class="bg-indigo-100 text-indigo-600 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h3 class="font-semibold text-base sm:text-lg text-slate-700">สอบควิซกลุ่ม</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1 sm:mt-2">สุ่มโจทย์ 4 กลุ่ม</p>
+                    </button>
+
+                    <button onclick="setupSoloQuiz()" class="btn-hitech bg-white border-2 border-blue-100 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl flex flex-col items-center hover:border-sky-500 hover:bg-sky-50 group sm:col-span-2 lg:col-span-1">
+                        <div class="bg-sky-100 text-sky-600 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <h3 class="font-semibold text-base sm:text-lg text-slate-700">สอบควิซเดี่ยว</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1 sm:mt-2">ทดสอบรายบุคคล</p>
+                    </button>
+                </div>
+
+                <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-100">
+                    <p class="text-slate-400 text-xs sm:text-sm font-light px-2">
+                        <i class="fa-solid fa-code mr-1"></i> พัฒนาสื่อการเรียนรู้โดย: <span class="text-blue-600 font-medium">นายสาธิต ศิริวัชน์ (Coolnut)</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: LEARN -->
+        <section id="learn" class="hidden fade-in">
+            <div class="mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 flex-wrap">
+                <button onclick="showSection('home')" class="bg-white p-2 sm:p-2.5 rounded-full shadow hover:bg-slate-50 text-slate-600 text-sm sm:text-base">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">บทเรียน: กฎอนุรักษ์พลังงานกล</h2>
+            </div>
+
+            <!-- Concept Card -->
+            <div class="glass-panel p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl shadow-sm mb-4 sm:mb-6 border-l-4 border-blue-500">
+                <h3 class="text-lg sm:text-xl font-bold text-blue-700 mb-2"><i class="fa-solid fa-lightbulb mr-2"></i>หลักการสำคัญ</h3>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    "พลังงานไม่สามารถสูญหายหรือสร้างขึ้นใหม่ได้ แต่สามารถเปลี่ยนรูปได้" ในระบบที่ไม่มีแรงภายนอก (เช่น แรงเสียดทาน) มากระทำ 
+                    ผลรวมของพลังงานกลจะคงที่เสมอ <br>
+                    <div class="text-center my-3 sm:my-4 text-lg sm:text-xl overflow-x-auto">
+                        $$ E_1 = E_2 $$
+                    </div>
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-3 sm:mt-4">
+                    <div class="bg-orange-50 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-orange-100">
+                        <div class="font-bold text-sm sm:text-base text-orange-600">พลังงานจลน์ \( (E_k) \)</div>
+                        <div class="text-xs sm:text-sm text-slate-600">เกิดเมื่อวัตถุเคลื่อนที่</div>
+                        <div class="text-center mt-2 font-bold text-sm sm:text-base overflow-x-auto">$$ E_k = \frac{1}{2}mv^2 $$</div>
+                    </div>
+                    <div class="bg-emerald-50 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-emerald-100">
+                        <div class="font-bold text-sm sm:text-base text-emerald-600">ศักย์โน้มถ่วง \( (E_p) \)</div>
+                        <div class="text-xs sm:text-sm text-slate-600">เกิดเมื่อวัตถุมีความสูง</div>
+                        <div class="text-center mt-2 font-bold text-sm sm:text-base overflow-x-auto">$$ E_p = mgh $$</div>
+                    </div>
+                    <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-purple-100 sm:col-span-2 lg:col-span-1">
+                        <div class="font-bold text-sm sm:text-base text-purple-600">ศักย์ยืดหยุ่น \( (E_s) \)</div>
+                        <div class="text-xs sm:text-sm text-slate-600">เกิดจากสปริงยืด/หด</div>
+                        <div class="text-center mt-2 font-bold text-sm sm:text-base overflow-x-auto">$$ E_s = \frac{1}{2}kx^2 $$</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples -->
+            <div class="space-y-4 sm:space-y-6">
+                <h3 class="text-base sm:text-lg font-bold text-slate-700 ml-1 sm:ml-2">ตัวอย่างการคำนวณ (ใช้ \( g = 9.8 \ m/s^2 \))</h3>
+                
+                <!-- Example Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6" id="examples-container">
+                    <!-- Example items will be injected by JS for cleanliness -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: GROUP QUIZ -->
+        <section id="group-quiz" class="hidden fade-in">
+            <div class="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                    <button onclick="showSection('home')" class="bg-white p-2 sm:p-2.5 rounded-full shadow hover:bg-slate-50 text-slate-600 text-sm sm:text-base">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">สอบควิซกลุ่ม (Group Quiz)</h2>
+                </div>
+                <button onclick="setupGroupQuiz()" class="btn-hitech bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl shadow-lg hover:bg-blue-700 text-sm sm:text-base w-full sm:w-auto">
+                    <i class="fa-solid fa-shuffle mr-2"></i> สุ่มสถานการณ์ใหม่
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6" id="group-quiz-container">
+                <!-- Group cards generated by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION: SOLO QUIZ -->
+        <section id="solo-quiz" class="hidden fade-in">
+            <div class="mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 flex-wrap">
+                <button onclick="showSection('home')" class="bg-white p-2 sm:p-2.5 rounded-full shadow hover:bg-slate-50 text-slate-600 text-sm sm:text-base">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">สอบควิซเดี่ยว (Solo Quiz)</h2>
+            </div>
+
+            <div class="max-w-2xl mx-auto" id="solo-quiz-container">
+                <!-- Solo card generated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JS LOGIC -->
+    <script>
+        // --- CONSTANTS ---
+        const g = 9.8;
+        const scenariosBase = [
+            {
+                id: 'ek_ep',
+                type: '\\( E_k \\rightarrow E_p \\)',
+                title: 'โยนวัตถุขึ้นในแนวดิ่ง',
+                desc: 'วัตถุมวล 2 kg ถูกโยนขึ้นด้วยความเร็วต้น <b>[N]</b> m/s จงหาความสูงสูงสุดที่วัตถุขึ้นไปได้',
+                varUnit: 'm/s',
+                ansUnit: 'm',
+                solve: (n) => {
+                    // Ek = Ep => 1/2*m*v^2 = m*g*h => h = v^2 / 2g
+                    return (Math.pow(n, 2)) / (2 * g);
+                },
+                formula: '$$ \\frac{1}{2}mv^2 = mgh \\Rightarrow h = \\frac{v^2}{2g} $$'
+            },
+            {
+                id: 'ek_es',
+                type: '\\( E_k \\rightarrow E_s \\)',
+                title: 'วัตถุวิ่งชนสปริง',
+                desc: 'วัตถุมวล 4 kg วิ่งด้วยความเร็ว <b>[N]</b> m/s เข้าชนสปริงที่มีค่านิจ 200 N/m จงหาสปริงหดตัวกี่เมตร',
+                varUnit: 'm/s',
+                ansUnit: 'm',
+                solve: (n) => {
+                    // Ek = Es => 1/2*m*v^2 = 1/2*k*x^2 => m*v^2 = k*x^2 => x = v * sqrt(m/k)
+                    const m = 4; const k = 200;
+                    return n * Math.sqrt(m / k);
+                },
+                formula: '$$ \\frac{1}{2}mv^2 = \\frac{1}{2}kx^2 \\Rightarrow x = v\\sqrt{\\frac{m}{k}} $$'
+            },
+            {
+                id: 'ep_ek',
+                type: '\\( E_p \\rightarrow E_k \\)',
+                title: 'ปล่อยวัตถุตกอิสระ',
+                desc: 'ปล่อยวัตถุจากตึกสูง <b>[N]</b> เมตร จงหาความเร็วของวัตถุขณะกระทบพื้น',
+                varUnit: 'm',
+                ansUnit: 'm/s',
+                solve: (n) => {
+                    // Ep = Ek => mgh = 1/2*mv^2 => v = sqrt(2gh)
+                    return Math.sqrt(2 * g * n);
+                },
+                formula: '$$ mgh = \\frac{1}{2}mv^2 \\Rightarrow v = \\sqrt{2gh} $$'
+            },
+            {
+                id: 'ep_es',
+                type: '\\( E_p \\rightarrow E_s \\)',
+                title: 'ปล่อยวัตถุใส่สปริง',
+                desc: 'ปล่อยวัตถุมวล 2 kg จากความสูง <b>[N]</b> เมตร เหนือสปริง (วัดถึงจุดสมดุล) โดยสปริงมีค่านิจ 400 N/m จงหาสปริงหดตัวมากสุดกี่เมตร (คิดแบบอนุรักษ์รวม)',
+                varUnit: 'm',
+                ansUnit: 'm',
+                solve: (n) => {
+                    // Ep = Es => mgh = 1/2*k*x^2 => x = sqrt(2mgh/k)
+                    const m = 2; const k = 400;
+                    return Math.sqrt((2 * m * g * n) / k);
+                },
+                formula: '$$ mgh = \\frac{1}{2}kx^2 \\Rightarrow x = \\sqrt{\\frac{2mgh}{k}} $$'
+            },
+            {
+                id: 'es_ek',
+                type: '\\( E_s \\rightarrow E_k \\)',
+                title: 'สปริงดีดวัตถุ',
+                desc: 'สปริงมีค่านิจ <b>[N]</b>00 N/m ถูกหดตัว 0.5 เมตร แล้วดีดวัตถุมวล 1 kg ออกไป จงหาความเร็วของวัตถุ',
+                varUnit: 'ร้อย N/m',
+                ansUnit: 'm/s',
+                solve: (n) => {
+                    // Es = Ek => 1/2*k*x^2 = 1/2*m*v^2 => v = x * sqrt(k/m)
+                    const k = n * 100; const x = 0.5; const m = 1;
+                    return x * Math.sqrt(k / m);
+                },
+                formula: '$$ \\frac{1}{2}kx^2 = \\frac{1}{2}mv^2 \\Rightarrow v = x\\sqrt{\\frac{k}{m}} $$'
+            },
+            {
+                id: 'es_ep',
+                type: '\\( E_s \\rightarrow E_p \\)',
+                title: 'ปืนสปริงยิงขึ้นฟ้า',
+                desc: 'ปืนสปริงค่านิจ 1000 N/m ถูกหดระยะ <b>[N]</b>/100 เมตร ยิงลูกปืนมวล 0.5 kg ขึ้นฟ้า จงหาความสูงสูงสุด',
+                varUnit: 'ซม.',
+                ansUnit: 'm',
+                solve: (n) => {
+                    // Es = Ep => 1/2*k*x^2 = mgh => h = kx^2 / 2mg
+                    const k = 1000; const x = n / 100; const m = 0.5;
+                    return (k * Math.pow(x, 2)) / (2 * m * g);
+                },
+                formula: '$$ \\frac{1}{2}kx^2 = mgh \\Rightarrow h = \\frac{kx^2}{2mg} $$'
+            }
+        ];
+
+        const exampleData = [
+            { type: '\\( E_k \\rightarrow E_p \\)', title: 'โยนลูกบอลขึ้นฟ้า', q: 'บอลมวล 1 kg โยนขึ้นด้วยความเร็ว 10 m/s จะขึ้นได้สูงกี่เมตร?', method: '$$ E_k = E_p $$ $$ \\frac{1}{2}(1)(10^2) = (1)(9.8)h $$ $$ 50 = 9.8h \\Rightarrow h \\approx 5.10\\ m $$' },
+            { type: '\\( E_p \\rightarrow E_k \\)', title: 'ปล่อยของตก', q: 'ปล่อยของมวล 2 kg จากสูง 5 m ความเร็วขณะกระทบพื้นเป็นเท่าใด?', method: '$$ E_p = E_k $$ $$ (2)(9.8)(5) = \\frac{1}{2}(2)v^2 $$ $$ 98 = v^2 \\Rightarrow v \\approx 9.90\\ m/s $$' },
+            { type: '\\( E_k \\rightarrow E_s \\)', title: 'รถชนสปริง', q: 'รถมวล 2 kg ความเร็ว 4 m/s ชนสปริง k=200 N/m สปริงหดเท่าใด?', method: '$$ E_k = E_s $$ $$ \\frac{1}{2}(2)(4^2) = \\frac{1}{2}(200)x^2 $$ $$ 16 = 100x^2 \\Rightarrow x = 0.40\\ m $$' },
+            { type: '\\( E_p \\rightarrow E_s \\)', title: 'ทิ้งของใส่สปริง', q: 'มวล 1 kg ตกจากสูง 2 m ใส่สปริง k=400 N/m สปริงหดเท่าใด?', method: '$$ E_p = E_s $$ $$ (1)(9.8)(2) = \\frac{1}{2}(400)x^2 $$ $$ 19.6 = 200x^2 \\Rightarrow x \\approx 0.31\\ m $$' },
+            { type: '\\( E_s \\rightarrow E_k \\)', title: 'ดีดลูกแก้ว', q: 'สปริง k=100 N/m หด 0.2 m ดีดลูกแก้วมวล 0.1 kg ความเร็วหลุดเท่าใด?', method: '$$ E_s = E_k $$ $$ \\frac{1}{2}(100)(0.2^2) = \\frac{1}{2}(0.1)v^2 $$ $$ 2 = 0.05v^2 \\Rightarrow v \\approx 6.32\\ m/s $$' },
+            { type: '\\( E_s \\rightarrow E_p \\)', title: 'ยิงขึ้นที่สูง', q: 'สปริง k=1000 N/m หด 0.1 m ยิงมวล 0.5 kg ขึ้นสูงกี่เมตร?', method: '$$ E_s = E_p $$ $$ \\frac{1}{2}(1000)(0.1^2) = (0.5)(9.8)h $$ $$ 5 = 4.9h \\Rightarrow h \\approx 1.02\\ m $$' },
+        ];
+
+        // --- MATHJAX UTILS ---
+        function typesetMath() {
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // --- NAVIGATION ---
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            if(id === 'learn') {
+                renderExamples();
+            } else {
+                // Ensure MathJax renders static content when switching back if needed
+                setTimeout(typesetMath, 50);
+            }
+        }
+
+        // --- RENDER LEARN SECTION ---
+        function renderExamples() {
+            const container = document.getElementById('examples-container');
+            container.innerHTML = exampleData.map((ex, idx) => `
+                <div class="bg-white p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2 sm:mb-3 flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 sm:px-3 py-1 rounded-full">${ex.type}</span>
+                        <span class="text-slate-300 text-xs sm:text-sm">Ex ${idx + 1}</span>
+                    </div>
+                    <h4 class="font-bold text-sm sm:text-base text-slate-800 mb-2">${ex.title}</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm mb-3 sm:mb-4">${ex.q}</p>
+                    <div class="bg-slate-50 p-2 sm:p-3 rounded-lg border border-slate-200">
+                        <p class="text-xs text-slate-500 font-semibold mb-1">วิธีทำ:</p>
+                        <div class="text-slate-800 text-xs sm:text-sm overflow-x-auto">
+                            ${ex.method}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Trigger MathJax
+            typesetMath();
+        }
+
+        // --- UTILS ---
+        function getRandomScenarios(count) {
+            let shuffled = [...scenariosBase].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function formatDesc(desc, nVal) {
+            return desc.replace('[N]', `<span class="text-blue-600 font-bold text-base sm:text-lg underline decoration-dashed">${nVal || '?'}</span>`);
+        }
+
+        // --- QUIZ LOGIC ---
+        function createQuizCardHTML(scenario, index, isSolo = false) {
+            const cardId = isSolo ? `solo-0` : `group-${index}`;
+            const title = isSolo ? 'แบบทดสอบรายบุคคล' : `กลุ่มที่ ${index + 1}`;
+            const inputLabel = isSolo ? 'เลขที่ของคุณ' : 'ผลรวมเลขที่สมาชิก';
+            
+            return `
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-slate-100 overflow-hidden" id="card-${cardId}">
+                <div class="bg-gradient-to-r ${isSolo ? 'from-sky-500 to-cyan-500' : 'from-blue-500 to-indigo-600'} p-3 sm:p-4 text-white flex justify-between items-center flex-wrap gap-2">
+                    <h3 class="font-bold text-base sm:text-lg"><i class="fa-solid ${isSolo ? 'fa-user' : 'fa-users'} mr-1 sm:mr-2"></i>${title}</h3>
+                    <span class="text-xs bg-white/20 px-2 py-1 rounded text-white font-mono">${scenario.type}</span>
+                </div>
+                
+                <div class="p-4 sm:p-5 md:p-6">
+                    <div class="min-h-[60px] sm:min-h-[80px] mb-3 sm:mb-4 text-slate-700 text-xs sm:text-sm leading-relaxed" id="desc-${cardId}">
+                        ${formatDesc(scenario.desc, null)}
+                    </div>
+
+                    <div class="space-y-3 sm:space-y-4">
+                        <!-- Input Variable -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1">${inputLabel}</label>
+                            <input type="number" id="input-n-${cardId}" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 sm:py-2 text-slate-800 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="กรอกตัวเลข..." oninput="updateQuestionText('${cardId}', '${scenario.id}')">
+                        </div>
+
+                        <!-- Input Answer -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1">คำตอบที่ได้ (${scenario.ansUnit})</label>
+                            <input type="number" id="input-ans-${cardId}" step="0.01" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 sm:py-2 text-slate-800 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500 transition" placeholder="ทศนิยม 2 ตำแหน่ง">
+                        </div>
+
+                        <button onclick="checkAnswer('${cardId}', '${scenario.id}')" class="w-full bg-slate-800 text-white py-2.5 sm:py-2 rounded-lg font-medium hover:bg-slate-700 transition shadow-md active:scale-95 text-sm sm:text-base">
+                            ตรวจคำตอบ
+                        </button>
+                    </div>
+
+                    <!-- Result Area -->
+                    <div id="result-${cardId}" class="hidden mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-100"></div>
+                </div>
+            </div>
+            `;
+        }
+
+        // Store current scenarios in memory
+        let currentScenarios = {};
+
+        function setupGroupQuiz() {
+            showSection('group-quiz');
+            const container = document.getElementById('group-quiz-container');
+            container.innerHTML = '';
+            currentScenarios = {};
+
+            const scenarios = getRandomScenarios(4);
+            
+            scenarios.forEach((sc, idx) => {
+                const key = `group-${idx}`;
+                currentScenarios[key] = sc;
+                container.innerHTML += createQuizCardHTML(sc, idx, false);
+            });
+            typesetMath(); // Render MathJax for titles/types
+        }
+
+        function setupSoloQuiz() {
+            showSection('solo-quiz');
+            const container = document.getElementById('solo-quiz-container');
+            container.innerHTML = '';
+            currentScenarios = {};
+
+            const sc = getRandomScenarios(1)[0];
+            const key = `solo-0`;
+            currentScenarios[key] = sc;
+            container.innerHTML = createQuizCardHTML(sc, 0, true);
+            typesetMath(); // Render MathJax for titles/types
+        }
+
+        function updateQuestionText(cardId, scenarioId) {
+            const val = document.getElementById(`input-n-${cardId}`).value;
+            const scenario = currentScenarios[cardId];
+            
+            if (val && scenario) {
+                document.getElementById(`desc-${cardId}`).innerHTML = formatDesc(scenario.desc, val);
+            }
+        }
+
+        function checkAnswer(cardId, scenarioId) {
+            const nVal = parseFloat(document.getElementById(`input-n-${cardId}`).value);
+            const userAns = parseFloat(document.getElementById(`input-ans-${cardId}`).value);
+            const resultDiv = document.getElementById(`result-${cardId}`);
+            const scenario = currentScenarios[cardId];
+
+            if (isNaN(nVal) || isNaN(userAns)) {
+                alert("กรุณากรอกตัวเลขให้ครบถ้วน");
+                return;
+            }
+
+            // Calculate Correct Answer
+            const correctAns = scenario.solve(nVal);
+            const diff = Math.abs(correctAns - userAns);
+            const isCorrect = diff <= 0.02;
+
+            // HTML for Result
+            let html = '';
+            if (isCorrect) {
+                html = `
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-2 sm:p-3 text-center animate-pulse">
+                        <i class="fa-solid fa-circle-check text-green-500 text-2xl sm:text-3xl mb-1 sm:mb-2"></i>
+                        <h4 class="text-green-700 font-bold text-sm sm:text-base">ถูกต้อง! เก่งมาก</h4>
+                        <p class="text-xs text-green-600 mt-1">คำตอบที่ถูกคือ ${correctAns.toFixed(2)} (คลาดเคลื่อน ${diff.toFixed(4)})</p>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-2 sm:p-3 text-center">
+                        <i class="fa-solid fa-circle-xmark text-red-500 text-2xl sm:text-3xl mb-1 sm:mb-2"></i>
+                        <h4 class="text-red-700 font-bold text-sm sm:text-base">ผิดจ้า ลองใหม่นะ</h4>
+                        <p class="text-xs text-red-600">คำตอบที่ถูกคือ <b>${correctAns.toFixed(2)}</b></p>
+                        <p class="text-xs text-slate-500 mt-1">คำตอบคุณ: ${userAns}</p>
+                    </div>
+                `;
+            }
+
+            // Show Solution Logic
+            html += `
+                <div class="mt-2 sm:mt-3 bg-slate-50 p-2 sm:p-3 rounded border border-slate-200 text-left text-xs sm:text-sm">
+                    <p class="font-bold text-slate-700 mb-1"><i class="fa-solid fa-calculator"></i> วิธีทำ:</p>
+                    <p class="text-slate-600 mb-1">จากตัวแปร N = ${nVal}</p>
+                    <div class="text-slate-800 bg-white p-2 rounded border border-slate-100 text-center text-sm sm:text-base md:text-lg my-2 overflow-x-auto">
+                        ${scenario.formula}
+                    </div>
+                    <p class="text-slate-600 text-center text-xs sm:text-sm">แทนค่าได้คำตอบ ≈ <b>${correctAns.toFixed(4)}</b></p>
+                </div>
+            `;
+
+            resultDiv.innerHTML = html;
+            resultDiv.classList.remove('hidden');
+            typesetMath(); // Trigger MathJax on new content
+        }
+
+        // Initialize MathJax after load
+        document.addEventListener('DOMContentLoaded', () => {
+            typesetMath();
+        });
+
+    </script>
+</body>
+</html>
