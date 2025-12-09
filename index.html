@@ -17,10 +17,20 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw;
+        }
+        
         body {
             font-family: 'Prompt', sans-serif;
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             min-height: 100vh;
+        }
+        
+        main {
+            overflow-x: hidden !important;
+            max-width: 100%;
         }
         
         /* Custom Scrollbar */
@@ -169,15 +179,11 @@
             color: #64748b; /* slate-500 instead of slate-400 */
         }
 
-        /* Hide scrollbar but allow content to scroll if needed */
+        /* Allow content to expand without scrollbar */
         #examples-container .mathjax-loading {
-            overflow-x: auto;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-        }
-
-        #examples-container .mathjax-loading::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+            overflow-x: visible;
+            word-wrap: break-word;
+            line-height: 2;
         }
 
         /* Keep MathJax beautiful and properly displayed - each equation on new line */
@@ -185,17 +191,27 @@
             display: block !important;
             margin: 1em auto !important;
             text-align: center;
-            width: 100%;
+            max-width: 100%;
+            overflow-x: visible;
         }
 
-        /* Add spacing between multiple equations */
-        #examples-container .mathjax-loading {
-            line-height: 2;
-        }
-
-        /* Ensure cards don't overflow */
+        /* Allow cards to expand to fit content */
         #examples-container > div {
-            overflow: hidden;
+            overflow: visible;
+            min-width: 0; /* Allow flex shrinking */
+        }
+
+        /* Style for example images */
+        #examples-container img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Ensure MathJax SVG doesn't cause overflow */
+        #examples-container mjx-container > svg {
+            max-width: 100% !important;
+            height: auto !important;
         }
     </style>
 </head>
@@ -529,7 +545,20 @@
         // --- RENDER LEARN SECTION ---
         function renderExamples() {
             const container = document.getElementById('examples-container');
-            container.innerHTML = exampleData.map((ex, idx) => `
+            // Image mapping: ex.1→quiz4, ex.2→custom URL, ex.3→quiz3, ex.4→quiz2, ex.5→quiz5, ex.6→quiz1
+            const imageMapping = [
+                4, 
+                'https://img5.pic.in.th/file/secure-sv1/quiz2252a262ef662a1b21.png',
+                3, 
+                2, 
+                5, 
+                1
+            ];
+            container.innerHTML = exampleData.map((ex, idx) => {
+                const imageSrc = typeof imageMapping[idx] === 'number' 
+                    ? `https://img5.pic.in.th/file/secure-sv1/quiz${imageMapping[idx]}.png`
+                    : imageMapping[idx];
+                return `
                 <div class="bg-white p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition" role="article" aria-label="ตัวอย่างที่ ${idx + 1}: ${ex.title}">
                     <div class="flex items-center justify-between mb-2 sm:mb-3 flex-wrap gap-2">
                         <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 sm:px-3 py-1 rounded-full" aria-label="ประเภท: ${ex.type}">${ex.type}</span>
@@ -537,6 +566,9 @@
                     </div>
                     <h4 class="font-bold text-sm sm:text-base text-slate-800 mb-2">${ex.title}</h4>
                     <p class="text-slate-600 text-xs sm:text-sm mb-3 sm:mb-4">${ex.q}</p>
+                    <div class="mb-3 sm:mb-4 flex justify-center">
+                        <img src="${imageSrc}" alt="ภาพประกอบโจทย์ ${idx + 1}" class="max-w-full h-auto rounded-lg shadow-sm border border-slate-200" style="max-width: 100%; height: auto;">
+                    </div>
                     <div class="bg-slate-50 p-2 sm:p-3 rounded-lg border border-slate-200">
                         <p class="text-xs text-slate-600 font-semibold mb-1">วิธีทำ:</p>
                         <div class="text-slate-800 text-xs sm:text-sm mathjax-loading">
@@ -544,7 +576,8 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
             
             // Trigger MathJax for all math content including badges
             typesetMath(container);
